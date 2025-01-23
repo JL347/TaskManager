@@ -1,9 +1,12 @@
-
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <h1>
-      Task Manager
-    </h1>
+    <div>
+      <h1>Task Manager</h1>
+      <Link href="/tasks">
+        Tasks
+      </Link>
+    </div>
   );
 }

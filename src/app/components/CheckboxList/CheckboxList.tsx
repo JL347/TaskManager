@@ -1,6 +1,4 @@
-"use client";
-
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -16,10 +14,14 @@ interface Item {
 }
 
 export default function CheckboxList({ items }: { items: Item[] }) {
-  const [checkedItems, setCheckedItems] = React.useState(items);
+  const [checkedItems, setCheckedItems] = React.useState<Item[]>(items);
+
+  useEffect(() => {
+    setCheckedItems(items);
+  }, [items]);
 
   const handleToggle = (id: number) => () => {
-    const updatedItems = checkedItems.map(item =>
+    const updatedItems = checkedItems.map((item) =>
       item.id === id ? { ...item, completed: !item.completed } : item
     );
     setCheckedItems(updatedItems);
@@ -31,10 +33,7 @@ export default function CheckboxList({ items }: { items: Item[] }) {
         const labelId = `checkbox-list-label-${item.id}`;
 
         return (
-          <ListItem
-            key={item.id}
-            disablePadding
-          >
+          <ListItem key={item.id} disablePadding>
             <ListItemButton role={undefined} onClick={handleToggle(item.id)} dense>
               <ListItemIcon>
                 <Checkbox
